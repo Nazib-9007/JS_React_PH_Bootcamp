@@ -145,3 +145,43 @@ const result = getPrice({
     price: 500
 });
 console.log(result);
+
+
+//Asyncronus behaviour...
+const payment = true;
+const marks = 90;
+
+function enroll(callBack){
+    console.log('Payment successfully done. Now u can enter the course!');
+
+    setTimeout(function(){
+        if(payment){
+            callBack()
+        }else{
+            console.log('Error payment process!');
+        }
+    }, 2000);
+}
+
+function progress(callBack){
+    console.log('Course on the progress....');
+
+    setTimeout(function(){
+        if(marks >= 80){
+            callBack();
+        }else{
+            console.log(`You don't have enough marks!`);
+        }
+    }, 3000);
+}
+
+function getCertificate(){
+    console.log('Preparing ur certificate...');
+    setTimeout(function (){
+        console.log('Congratulation! ur earned certificate!');
+    }, 3000);
+}
+
+enroll(()=>{
+    progress(getCertificate);
+})
