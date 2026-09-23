@@ -147,7 +147,7 @@ const result = getPrice({
 console.log(result);
 
 
-//Asyncronus behaviour...
+//Asynchronus behaviour...
 const payment = true;
 const marks = 90;
 
@@ -185,3 +185,61 @@ function getCertificate(){
 enroll(()=>{
     progress(getCertificate);
 })
+
+// Asynchronus Js -- Promise()
+const payment = false;
+const marks = 85;
+
+function enroll(){
+    console.log('Payment is processing...');
+    
+    const promise = new Promise(function (resolve, reject){
+        setTimeout(function(){
+            if (payment){
+                resolve()
+            }else{
+                reject('Transiction error!')
+            }
+        }, 2000)
+    })
+
+    return promise;
+}
+
+function progress(){
+    console.log('Course on progress....')
+
+    const secondPromise = new Promise(function(resolve, reject){
+        setTimeout(function(){
+            if(marks>=80){
+                resolve()
+            }else{
+                reject('You are not eligible for certificate.')
+            }
+        }, 3000)
+    })
+
+    return secondPromise;
+}
+
+function getCertificate(){
+    console.log('Preparing ur certificate....');
+
+    const getPromise = new Promise(function(resolve){
+        setTimeout(function(){
+            resolve('Congratulation! you get the the certificate.');
+        }, 2000)
+    })
+
+    return getPromise;
+}
+
+enroll()
+        .then(progress)
+        .then(getCertificate)
+        .then(function(value){
+            console.log(value);
+        })
+        .catch(function(error){
+            console.log(error);
+        })
